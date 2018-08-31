@@ -105,6 +105,32 @@ router.get('/record/:id', isAuthenticated, (req,res,next)=>{
     });
 })
 
+//random tareas
+router.get('/random/:id', isAuthenticated, (req,res,next)=>{
+    for(var i=0; i<50; i++){
+        tar={
+            user: req.params.id,
+            title: "tarea no:"+i,
+            description: "descripcion de la tarea",
+            duration: time(),
+        }
+        Tarea.create(tar)
+            .then(tarea=>{
+                return res.status(200).json(tarea);
+            })
+            .catch(err => {
+                return res.status(500).json(err);
+            });
+            }
+})
 
+function time(){
+    var numCar=Math.floor(Math.random()*60);
+    if(numCar<10){numCar="0"+numCar}
+    var min=Math.floor(Math.random()*2);
+    if(min<10){min="0"+min}
+    
+    return min+":"+numCar
+    }
 
 module.exports = router;
