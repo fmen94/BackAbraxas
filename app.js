@@ -13,7 +13,7 @@ const MongoStore   = require("connect-mongo")(session);
 
 mongoose.Promise = Promise;
 mongoose
-  .connect('mongodb://localhost/back', {useMongoClient: true})
+  .connect(process.env.db, {useMongoClient: true})
   .then(() => {
     console.log('Connected to Mongo!')
   }).catch(err => {
